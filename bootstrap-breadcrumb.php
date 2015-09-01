@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Bootstrap breadcrumb
- * Plugin URI: https://github.com/SylvainMarty/wordpress-boostrap-breadcrumb
+ * Plugin URI: https://github.com/SylvainMarty/wordpress-bootstrap-breadcrumb
  * Description: Display a bootstrap breadcrumb automaticaly
  * Version: 1.0
  * Author: SylvainMarty
