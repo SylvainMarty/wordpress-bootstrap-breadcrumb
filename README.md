@@ -32,7 +32,7 @@ if( function_exists('bootstrap_breadcrumb') )
 ?>
 ```
 
-## Differents ways
+## Different ways
 ### Custom home icon
 ```
 <?php 
