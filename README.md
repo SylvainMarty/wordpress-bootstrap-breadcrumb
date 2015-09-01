@@ -1,6 +1,6 @@
 # Bootstrap breadcrumb Wordpress plugin
 
-> It's a plugin which display the website Bootstrap breadcrumb.
+> Display your Wordpress breadcrumb with Bootstrap 3
 
 ## Version
 1.0
@@ -12,6 +12,11 @@ Bootstrap breadcrumb Wordpress plugin allow to :
 * Automatic arborescence indexation (*Home > sub-page > sub-sub-page*)
 * Custom post support
 * Use icon to the home link
+
+### Requirements
+
+* Bootstrap 3
+* Wordpress 3 or higher
 
 ## Installation
 
