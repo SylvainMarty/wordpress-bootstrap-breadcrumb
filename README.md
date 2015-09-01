@@ -22,7 +22,7 @@ Bootstrap breadcrumb Wordpress plugin allow to :
 
 This section describes how to install the plugin and get it working.
 
-* Upload ```bootstrap-breadcrumb.php``` to the ```/wp-content/plugins/bootstrap-breadcrumb/``` directory.
+* Upload ```bootstrap-breadcrumb.php``` to the ```/wp-content/plugins/bootstrap-breadcrumb/``` directory
 * Activate the plugin through the *Plugins* menu in WordPress
 * Place the next code in your page template :
 ```
@@ -61,30 +61,3 @@ if( function_exists('bootstrap_breadcrumb') )
 	</section>
 <?php endif; ?>
 ```
-
-### Contributors
-
-
-
-### Donate link
-
-
-
-### Tags
-
-
-
-### Requires at least
-
-
-
-### Tested up to
-
-
-
-### Stable tag
-
-
-
-### License
-
