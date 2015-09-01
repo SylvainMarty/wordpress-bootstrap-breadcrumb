@@ -46,11 +46,11 @@ if( function_exists('bootstrap_breadcrumb') )
 ```
 <?php 
 if( function_exists('bootstrap_breadcrumb') )
-	bootstrap_breadcrumb( array( "custom_post_name" ) );
+	bootstrap_breadcrumb( array( "custom_post_name_1", "custom_post_name_2" ) );
 ?>
 ```
 
-### How to use in a template file
+### How to use into a template file
 
 ```
 <?php if( function_exists('bootstrap_breadcrumb') ): ?>
