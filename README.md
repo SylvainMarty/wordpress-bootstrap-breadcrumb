@@ -13,7 +13,7 @@ Bootstrap breadcrumb Wordpress plugin allow to :
 * Custom post support
 * Use icon to the home link
 
-### Requirements
+### Requires at least
 
 * Bootstrap 3
 * Wordpress 3 or higher
@@ -61,3 +61,30 @@ if( function_exists('bootstrap_breadcrumb') )
 	</section>
 <?php endif; ?>
 ```
+
+### Contributors
+
+
+
+### Donate link
+
+
+
+### Tags
+
+
+
+### Requires at least
+
+
+
+### Tested up to
+
+
+
+### Stable tag
+
+
+
+### License
+
