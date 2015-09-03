@@ -30,9 +30,14 @@ function bootstrap_breadcrumb($custom_home_icon = false, $custom_post_types = fa
 			else
 				bloginfo('name');
 		echo "</a></li>";
+		if ( has_category() ) {
+			echo '<li class="active"><a href="'.esc_url( get_permalink( get_page( get_the_category($post->ID) ) ) ).'">';
+			the_category(', ');
+			echo '</a></li>';
+		}
 		if ( is_category() || is_single() || $is_custom_post ) {
 			if ( is_category() )
-				echo '<li class="active"><a href="'.esc_url( get_permalink( get_page( get_the_category($post->ID) ) ) ).'">'.get_the_category($post->ID).'</a></li>';
+				echo '<li class="active"><a href="'.esc_url( get_permalink( get_page( get_the_category($post->ID) ) ) ).'">'.get_the_category($post->ID)[0]->name.'</a></li>';
 			if ( $is_custom_post )
 				echo '<li class="active"><a href="'.get_option('home').'/'.get_post_type_object( get_post_type($post) )->name.'">'.get_post_type_object( get_post_type($post) )->label.'</a></li>';
 			if ( is_single() )
