@@ -9,42 +9,52 @@
  * License: MIT License
  */
 
+$defaults = array(
+	'before_items' => '',
+	'breadcrumb_classes' => '',
+	'custom_home_icon' => false, // Insert html tag (like Fontawesome <i class="fa fa-xx"></li>)
+	'custom_post_types' => false, // Prevent custom post types with hierarchical structure
+	'do_not_show_on_index' => true,
+	'item_classes' => ''
+);
+
 /**
  * Display the breadcrumb automaticaly
- * @param  String $custom_home_icon  [OPTIONAL] Insert html tag (like Fontawesome <i class="fa fa-xx"></li>)
- * @param  Array $custom_post_types [OPTIONAL] Prevent custom post types with hierarchical structure
  */
-function bootstrap_breadcrumb($custom_home_icon = false, $custom_post_types = false) {
+function bootstrap_breadcrumb($options) {
 	wp_reset_query();
-	global $post;
+	global $post, $defaults;
+
+	$config = array_merge($defaults, $options);
+	$is_custom_post = $config['custom_post_types'] ? is_singular( $config['custom_post_types'] ) : false;
 	
-	$is_custom_post = $custom_post_types ? is_singular( $custom_post_types ) : false;
-	
-	if (!is_front_page() && !is_home()) {
-		echo '<ol class="breadcrumb">';
-		echo '<li><a href="';
+	if (!$config['do_not_show_on_index'] || (!is_front_page() && !is_home())) {
+		echo '<ol class="breadcrumb ' . $config['breadcrumb_classes'] . '">';
+		if ($config['before_items'] !== '')
+			echo $config['before_items'];
+		echo '<li class="breadcrumb-item ' . $config['item_classes'] . '"><a href="';
 		echo get_option('home');
 		echo '">';
-		if( $custom_home_icon )
-			echo $custom_home_icon;
+		if( $config['custom_home_icon'] )
+			echo $config['custom_home_icon'];
 			else
 				bloginfo('name');
 		echo "</a></li>";
 		if ( has_category() ) {
-			echo '<li class="active"><a href="'.esc_url( get_permalink( get_page( get_the_category($post->ID) ) ) ).'">';
+			echo '<li class="breadcrumb-item ' . $config['item_classes'] . ' active"><a href="'.esc_url( get_permalink( get_page( get_the_category($post->ID) ) ) ).'">';
 			the_category(', ');
 			echo '</a></li>';
 		}
 		if ( is_category() || is_single() || $is_custom_post ) {
 			if ( is_category() )
-				echo '<li class="active"><a href="'.esc_url( get_permalink( get_page( get_the_category($post->ID) ) ) ).'">'.get_the_category($post->ID)[0]->name.'</a></li>';
+				echo '<li class="breadcrumb-item ' . $config['item_classes'] . ' active"><a href="'.esc_url( get_permalink( get_page( get_the_category($post->ID) ) ) ).'">'.get_the_category($post->ID)[0]->name.'</a></li>';
 			if ( $is_custom_post ) {
-				echo '<li class="active"><a href="'.get_option('home').'/'.get_post_type_object( get_post_type($post) )->name.'">'.get_post_type_object( get_post_type($post) )->label.'</a></li>';
+				echo '<li class="breadcrumb-item ' . $config['item_classes'] . ' active"><a href="'.get_option('home').'/'.get_post_type_object( get_post_type($post) )->name.'">'.get_post_type_object( get_post_type($post) )->label.'</a></li>';
 				if ( $post->post_parent ) {
 					$home = get_page(get_option('page_on_front'));
 					for ($i = count($post->ancestors)-1; $i >= 0; $i--) {
 						if (($home->ID) != ($post->ancestors[$i])) {
-							echo '<li><a href="';
+							echo '<li class="breadcrumb-item ' . $config['item_classes'] . '"><a href="';
 							echo get_permalink($post->ancestors[$i]); 
 							echo '">';
 							echo get_the_title($post->ancestors[$i]);
@@ -54,23 +64,23 @@ function bootstrap_breadcrumb($custom_home_icon = false, $custom_post_types = fa
 				}
 			}
 			if ( is_single() )
-				echo '<li class="active">'.get_the_title($post->ID).'</li>';
+				echo '<li class="breadcrumb-item ' . $config['item_classes'] . ' active">'.get_the_title($post->ID).'</li>';
 		} elseif ( is_page() && $post->post_parent ) {
 			$home = get_page(get_option('page_on_front'));
 			for ($i = count($post->ancestors)-1; $i >= 0; $i--) {
 				if (($home->ID) != ($post->ancestors[$i])) {
-					echo '<li><a href="';
+					echo '<li class="breadcrumb-item ' . $config['item_classes'] . '"><a href="';
 					echo get_permalink($post->ancestors[$i]); 
 					echo '">';
 					echo get_the_title($post->ancestors[$i]);
 					echo "</a></li>";
 				}
 			}
-			echo '<li class="active">'.get_the_title($post->ID).'</li>';
+			echo '<li class="breadcrumb-item ' . $config['item_classes'] . ' active">'.get_the_title($post->ID).'</li>';
 		} elseif (is_page()) {
-			echo '<li class="active">'.get_the_title($post->ID).'</li>';
+			echo '<li class="breadcrumb-item ' . $config['item_classes'] . ' active">'.get_the_title($post->ID).'</li>';
 		} elseif (is_404()) {
-			echo '<li class="active">404</li>';
+			echo '<li class="breadcrumb-item ' . $config['item_classes'] . ' active">404</li>';
 		}
 		echo '</ol>';
 	}
